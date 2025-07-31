@@ -1,9 +1,8 @@
-.vscode/**
-.vscode-test/**
-.gitignore
-vsc-extension-quickstart.md
-node_modules/**
-*.atrc
-vsc-extension
-*.vsix
-*.git*
+.vscode
+node_modules
+out/
+src/
+tsconfig.json
+webpack.config.js
+esbuild.js
+!node_modules/vscode-languageserver-types
