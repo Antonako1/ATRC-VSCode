@@ -60,12 +60,12 @@
     "description": "Define a private ATRC variable"
   },
   "ATRC Section Block": {
-    "prefix": "[section]",
+    "prefix": "[block]",
     "body": [
-      "[${1:section}]",
+      "[${1:block}]",
       "\t$0"
     ],
-    "description": "Define a section block in ATRC"
+    "description": "Define a block in ATRC"
   },
     "ATRC Comment": {
         "prefix": "#",

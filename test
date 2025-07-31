@@ -1,5 +1,7 @@
 #!ATRC 
 
+
+
 <%var%=test 
 %var2%=test2
 #.INCLUDE ./atrabcdefga.atrc
@@ -8,7 +10,7 @@
 #endregion
 
 #attribute
-#.IF WINDOWS EQU TRUE OR %var% EQU abc OR WINDOWS EQU TRUE 
+#.IF WINDOWS EQU TRUE OR %var% EQU abc OR WINDOWS EQU TRUE
 #.DEFINE var=abc
 #.LOG Abcdefg
 [BLOCK]

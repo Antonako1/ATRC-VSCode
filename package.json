@@ -2,7 +2,7 @@
     "name": "atrc",
     "displayName": "ATRC",
     "description": "Language support and syntax highlighting for ATRC resource files",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "main": "./dist/extension.js",
     "publisher": "Antonako1",
     "author": {
@@ -102,7 +102,8 @@
             }
         ],
         "languages": [
-            {
+            {   
+                "firstLine": "#!ATRC",
                 "filenamePatterns": [
                     "*.atrc"
                 ],

@@ -56,9 +56,14 @@ connection.onInitialize((_params: InitializeParams) => {
             textDocumentSync: TextDocumentSyncKind.Incremental,
             // hoverProvider: true,
             completionProvider: {
-                resolveProvider: true,
-                allCommitCharacters: ['#', '.', '%', '<', '[', "E", "N", "G", "L", "G", "O", "T", "F", "W", "M", "U", "X", "A"],
-                triggerCharacters: ['#', '.', '%', '<', '[', "E", "N", "G", "L", "G", "O", "T", "F", "W", "M", "U", "X", "A"]
+                resolveProvider: false,
+                
+                // allCommitCharacters: ["E", "N", "G", "L", "G", "O", "T", "F", "W", "M", "U", "X", "A"],
+                // triggerCharacters: ['#', '.', '%', '[', '<'],
+                // completionItem: {
+                //   labelDetailsSupport: true,
+                // }
+
             },
         }
     };
@@ -173,35 +178,24 @@ const preprocessorKeywordCompletions: CompletionItem[] = preprocessorKeywords.ma
     label: item.label,
     kind: item.kind,
     detail: item.detail,
-    insertText: item.label,
-    filterText: item.label, // Use label as filter text
-    preselect: true, // Preselect the operator in the completion list
-    insertTextFormat: InsertTextFormat.PlainText
 }));
 const preprocessorCompletions: CompletionItem[] = preprocessors.map(item => ({
-    label: item.label,                      // e.g., '#.IF'
+    label: item.label,
     kind: item.kind,
     detail: item.detail,
-    insertText: item.label.replace(/^\s*/, ''), // Avoid leading spaces
-    filterText: item.label.replace(/^\s*#\./, ''), // e.g., match 'IF' instead of '#.IF'
-    sortText: item.label,                  // Optional: keeps original order
-    insertTextFormat: InsertTextFormat.PlainText
+    sortText: item.label,
 }));
 
 const preprocessorOperatorCompletions: CompletionItem[] = preprocessorOperators.map(item => ({
     label: item.label,
     kind: item.kind,
     detail: item.detail,
-    insertText: item.label,
-    filterText: item.label, // Use label as filter text
-    preselect: true, // Preselect the operator in the completion list
-    insertTextFormat: InsertTextFormat.PlainText
 }));
 
-const combinedCompletions: CompletionItem[] = [
+export const combinedCompletions: CompletionItem[] = [
+  ...preprocessorCompletions,
     ...preprocessorKeywordCompletions,
     ...preprocessorOperatorCompletions,
-    ...preprocessorCompletions,
 ];
 
 // const allHoverPatterns: InnerCompletionItem[] = [
@@ -558,55 +552,15 @@ connection.onHover((params: TextDocumentPositionParams): Hover | null => {
 });
 */
 
-connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
-    return item;
-});
 
+// connection.onCompletionResolve((params: TextDocumentPositionParams): CompletionItem[] => {
 
-// Completion provider
-connection.onCompletion((params): CompletionItem[] => {
-    const document = documents.get(params.textDocument.uri);
-    if (!document) return [];
+// });
 
-    const line = document.getText({
-        start: { line: params.position.line, character: 0 },
-        end: params.position
-    });
+// connection.onCompletion((params): CompletionItem[] => {
 
-    // Match already typed preprocessor keyword after #.
-    const preprocessorMatch = line.match(/^\s*#\.(\w*)$/);
-    if(!preprocessorMatch) {
-        return combinedCompletions;
-    }
-    const alreadyTyped = preprocessorMatch?.[1] || "";
+// });
 
-    return preprocessorCompletions.map(item => {
-        const fullLabel = item.label; // e.g., '#.IF'
-        const keyword = fullLabel.replace(/^#\./, ''); // e.g., 'IF'
-
-        // If alreadyTyped is 'I', insert only 'F'
-        const suffix = keyword.startsWith(alreadyTyped)
-            ? keyword.slice(alreadyTyped.length)
-            : keyword;
-
-        return {
-            ...item,
-            filterText: keyword,              // Allow matching just 'IF' etc.
-            insertText: suffix,               // Insert only what's missing
-            label: fullLabel,                 // Show full label
-            textEdit: {
-                newText: suffix,
-                range: {
-                    start: {
-                        line: params.position.line,
-                        character: line.length - alreadyTyped.length
-                    },
-                    end: params.position
-                }
-            }
-        };
-    });
-});
 
 
 
