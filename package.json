@@ -7,8 +7,17 @@
     "publisher": "Antonako1",
     "author": {
         "name": "Antonako1",
-        "website": "https://antonako1.github.io"
+        "website": "https://github.com/Antonako1/ATRC"
     },
+    "activationEvents": [
+        "onCommand:extension.showATRCCommands",
+        "onStartupFinished"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Antonako1/ATRC-VSCode.git"
+    },
+    "license": "BSD-2-Clause",
     "scripts": {
         "vscode:prepublish": "npm run compile",
 		"compile": "tsc -b",
@@ -122,12 +131,12 @@
         ]
     },
     "dependencies": {
-        "vscode": "^1.1.37",
         "vscode-languageclient": "^9.0.1",
         "vscode-languageserver": "^9.0.1",
         "vscode-languageserver-textdocument": "^1.0.12"
     },
     "devDependencies": {
+        "vscode": "^1.1.37",
         "@types/node": "^24.1.0"
     }
 }
