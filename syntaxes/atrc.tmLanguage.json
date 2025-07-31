@@ -1,0 +1,194 @@
+{
+  "scopeName": "source.atrc",
+  "name": "ATRC",
+  "fileTypes": ["atrc"],
+  "uuid": "atrc-grammar",
+  "patterns": [
+	  	{ "include": "#shebang" },
+		{ "include": "#preprocessor" },
+		{ "include": "#comment" },
+		{ "include": "#variable" },
+		{ "include": "#injection" },
+		{ "include": "#block" },
+		{ "include": "#key" },
+		{ "include": "#value" }
+  ],
+  "repository": {
+    "shebang": {
+      "match": "^#!ATRC\\b",
+      "name": "keyword.other.shebang"
+    },
+    "comment": {
+      "patterns": [
+        {
+          "match": "^\\s*#.*$",
+          "name": "comment.line.number-sign"
+        }
+      ]
+    },
+    "block": {
+      "patterns": [
+        {
+          "match": "^\\s*\\[([A-Za-z0-9_]+)\\]",
+          "name": "entity.name.section"
+        }
+      ]
+    },
+	  "variable": {
+		"patterns": [
+			{
+			"match": "(<\\%)([A-Za-z0-9_]+)(\\%)\\s*=\\s*",
+			"captures": {
+				"1": { "name": "punctuation.definition.variable.begin" },
+				"2": { "name": "variable.definition.special" },
+				"3": { "name": "punctuation.definition.variable.end" }
+			}
+			},
+			{
+			"match": "(\\%)([A-Za-z0-9_]+)(\\%)\\s*=\\s*",
+			"captures": {
+				"1": { "name": "punctuation.definition.variable.begin" },
+				"2": { "name": "variable.definition.special" },
+				"3": { "name": "punctuation.definition.variable.end" }
+			}
+			}
+		]
+	  },
+    "key": {
+        "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\b(?=\\s*=)",
+		"name": "variable.other.readwrite",
+		"captures": {
+			"1": { "name": "variable.other.readwrite" }
+		}
+    },
+    "preprocessor": {
+      "patterns": [
+        {
+          "match": "\\s*#\\.(ENDIF|ELSE)\\b",
+          "name": "keyword.control"
+        },
+        {
+          "begin": "\\s*#\\.(IF|ELSEIF)\\b",
+          "name": "keyword.control.conditional",
+          "end": "$",
+          "patterns": [
+            {
+              "match": "\\b(LINUX|WINDOWS|MACOS|UNIX|X86|X64|ARM|ARM64|TRUE|FALSE)\\b",
+              "name": "constant.language"
+            },
+            {
+              "match": "\\b(OR|AND|NOT|EQU|NEQ|GT|LT|GTE|LTE)\\b",
+              "name": "keyword.operator.logical"
+            },
+            {
+              "match": "%[A-Za-z0-9_]+%",
+              "name": "constant.character"
+            },
+            {
+              "match": "\"[^\"]*\"|'[^']*'",
+              "name": "string.quoted"
+            },
+			{
+			  "match": "\\b[A-Za-z0-9_]+\\b",
+			  "name": "string.quoted"
+			},
+            {
+              "match": "\\b\\d+\\b",
+              "name": "constant.numeric"
+            }
+          ]
+        },
+        {
+          "begin": "\\s*#\\.(DEFINE|UNDEFINE)\\b",
+          "name": "keyword.control",
+          "end": "$",
+          "patterns": [
+            {
+				"match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\b(?=\\s*=)",
+				"name": "variable.other.readwrite",
+				"captures": {
+					"1": { "name": "variable.other.readwrite" }
+				}
+            },
+			{
+			  "match": "\\s*=\\s*",
+			  "name": "keyword.operator.assignment"
+			},
+			{
+			  "match": "\"[^\"]*\"|'[^']*'|[^\\s]+",
+			  "name": "string.unquoted"
+			}
+          ]
+        },
+		{
+			"begin": "\\s*#\\.(INCLUDE)\\b",
+			"name": "keyword.control",
+			"end": "$",
+			"patterns": [
+				{
+					"match": "\"[^\"]*\"|'[^']*'|[^\\s]+",
+					"name": "storage.type"
+				}
+			]
+		},
+		{
+			"begin": "\\s*#\\.(IGNORE)\\b",
+			"name": "keyword.control",
+			"end": "$",
+			"patterns": [
+				{
+					"match": "\"[^\"]*\"|'[^']*'|[^\\s]+",
+					"name": "constant.numeric"
+				}
+			]
+		},
+        {
+          "begin": "\\s*#\\.(SR|ER)\\b",
+          "name": "keyword.control",
+          "end": "$",
+          "patterns": [
+            {
+              "match": "\\b(VAR|KEY)\\b",
+              "name": "storage.type"
+            }
+          ]
+        },
+        {
+          "begin": "\\s*#\\.(LOG|ERROR|ERRORCOUT|SUCCESS|DEBUG|WARNING)\\b",
+          "name": "keyword.control",
+          "end": "$",
+          "patterns": [
+            {
+              "match": "\"[^\"]*\"|'[^']*'|[^\\s]+",
+              "name": "string.unquoted"
+            }
+          ]
+        }
+      ]
+    },
+    "injection": {
+      "patterns": [
+        {
+          "match": "%\\*\\d+%",
+          "name": "constant.character"
+        },
+        {
+          "match": "%\\*%",
+          "name": "constant.character"
+        },
+        {
+          "match": "%[A-Za-z0-9_]+%",
+          "name": "constant.character"
+        }
+      ]
+    },
+	"value": {
+		"patterns": [
+			{
+			"match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b",
+			"name": "string.unquoted"
+			}
+		]
+	}
+  }
+}

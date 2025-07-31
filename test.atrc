@@ -1,0 +1,37 @@
+#!ATRC 
+
+<%var%=test 
+%var2%=test2
+#.INCLUDE ./atrabcdefga.atrc
+#region
+
+#endregion
+
+#attribute
+#.IF WINDOWS EQU TRUE OR %var% EQU abc OR WINDOWS EQU TRUE 
+#.DEFINE var=abc
+#.LOG Abcdefg
+[BLOCK]
+#.SR KEY
+keyraw=ads
+Aa
+#.IGNORE 1
+aaa
+#.ER
+key=value
+key2=%var2%, %*%, %*0% aaaa asd qw qwe  qweq weqwe qweq weqwe
+#.ENDIF 
+
+#.IF TRUE
+#.SR VAR
+#.ER
+#.ENDIF
+    
+
+#.IF %var% EQU test OR WINDOWS OR TRUE
+#.INCLUDE ./atrabcdefga.atrc
+
+#.ELSE
+#.DEFINE var=def
+#.LOG Def
+#.ENDIF

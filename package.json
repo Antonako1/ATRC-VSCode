@@ -1,0 +1,133 @@
+{
+    "name": "atrc",
+    "displayName": "ATRC",
+    "description": "Language support and syntax highlighting for ATRC resource files",
+    "version": "0.0.1",
+    "main": "./dist/extension.js",
+    "publisher": "Antonako1",
+    "author": {
+        "name": "Antonako1",
+        "website": "https://antonako1.github.io"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"lint": "eslint"
+    },
+    "engines": {
+        "vscode": "^1.102.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "capabilities": {
+        "completionProvider": {
+            "resolveProvider": true
+        }
+    },
+    "contributes": {
+        "semanticTokenTypes": [
+            {
+                "id": "comment",
+                "description": "Comment"
+            },
+            {
+                "id": "keyword",
+                "description": "Keyword"
+            },
+            {
+                "id": "variable",
+                "description": "Variable"
+            },
+            {
+                "id": "string",
+                "description": "String"
+            },
+            {
+                "id": "number",
+                "description": "Number"
+            },
+            {
+                "id": "constant",
+                "description": "Constant"
+            }
+        ],
+        "semanticTokenModifiers": [
+            {
+                "id": "readonly",
+                "description": "Readonly"
+            },
+            {
+                "id": "static",
+                "description": "Static"
+            }
+        ],
+        "semanticTokenScopes": [
+            {
+                "id": "comment",
+                "description": "Comment"
+            },
+            {
+                "id": "keyword",
+                "description": "Keyword"
+            },
+            {
+                "id": "variable",
+                "description": "Variable"
+            },
+            {
+                "id": "string",
+                "description": "String"
+            },
+            {
+                "id": "number",
+                "description": "Number"
+            },
+            {
+                "id": "constant",
+                "description": "Constant"
+            }
+        ],
+        "languages": [
+            {
+                "filenamePatterns": [
+                    "*.atrc"
+                ],
+                "id": "atrc",
+                "aliases": [
+                    "ATRC"
+                ],
+                "extensions": [
+                    ".atrc"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "atrc",
+                "scopeName": "source.atrc",
+                "path": "./syntaxes/atrc.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "atrc",
+                "path": "./snippets/atrc.json"
+            }
+        ],
+        "activationEvents": [
+            "onLanguage:atrc"
+        ]
+    },
+    "dependencies": {
+        "vscode": "^1.1.37",
+        "vscode-languageclient": "^9.0.1",
+        "vscode-languageserver": "^9.0.1",
+        "vscode-languageserver-textdocument": "^1.0.12"
+    },
+    "devDependencies": {
+        "@types/node": "^24.1.0"
+    }
+}

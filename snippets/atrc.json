@@ -1,0 +1,119 @@
+{
+  "ATRC If Directive": {
+    "prefix": "#.IF",
+    "body": [
+      "#.IF ${1:condition}",
+      "\t$0",
+      "#.ENDIF"
+    ],
+    "description": "ATRC conditional if block"
+    },
+    "ATRC If Else Directive": {
+      "prefix": "#.ELSE",
+      "body": [
+        "#.IF ${1:condition}",
+        "#.ELSE",
+        "#.ENDIF",
+        "\t$0"
+      ],
+      "description": "ATRC conditional else block"
+    },
+    "ATRC Shebang": {
+        "prefix": "#!ATRC",
+        "body": [
+            "#!ATRC"
+        ],
+        "description": "ATRC shebang line"
+    },
+    "ATRC Elseif Directive": {
+        "prefix": "#.ELSEIF",
+        "body": [
+        "#.IF ${1:condition}",
+        "#.ELSEIF ${1:condition}",
+        "#.ELSE",
+        "#.ENDIF",
+        "\t$0"
+        ],
+        "description": "ATRC conditional elseif block"
+    },
+  "ATRC Ignore Directive": {
+    "prefix": "#.IGNORE",
+    "body": [
+      "#.IGNORE ${1:number_of_lines}"
+    ],
+    "description": "Ignore next N lines"
+  },
+  "ATRC Variable Definition": {
+    "prefix": "%variable%=",
+    "body": [
+      "%${1:variable}%=${2:value}",
+      "\t$0"
+    ],
+    "description": "Define a ATRC variable"
+  },
+  "ATRC Private variable Definition": {
+    "prefix": "<%variable%=",
+    "body": [
+      "<%${1:variable}%=${2:value}",
+      "\t$0"
+    ],
+    "description": "Define a private ATRC variable"
+  },
+  "ATRC Section Block": {
+    "prefix": "[section]",
+    "body": [
+      "[${1:section}]",
+      "\t$0"
+    ],
+    "description": "Define a section block in ATRC"
+  },
+    "ATRC Comment": {
+        "prefix": "#",
+        "body": [
+        "# ${1:comment}",
+        "\t$0"
+        ],
+        "description": "Add a comment in ATRC"
+    },
+    "ATRC Key-Value Pair": {
+        "prefix": "key=value",
+        "body": [
+            "${1:key}=${2:value}",
+            "$0"
+        ],
+        "description": "Define a key-value pair in ATRC"
+    },
+    "ATRC DEFINE Directive": {
+        "prefix": "#.DEFINE",
+        "body": [
+            "#.DEFINE ${1:name}=${2:value}",
+            "$0"
+        ],
+        "description": "Define a constant in ATRC"
+    },
+    "ATRC UNDEFINE Directive": {
+        "prefix": "#.UNDEFINE",
+        "body": [
+            "#.UNDEFINE ${1:name}",
+            "\t$0"
+        ],
+        "description": "Undefine a constant in ATRC"
+    },
+    "ATRC INCLUDE Directive": {
+        "prefix": "#.INCLUDE",
+        "body": [
+            "#.INCLUDE ${1:file}",
+            "\t$0"
+        ],
+        "description": "Include another ATRC file"
+    },
+    "ATRC Raw String Directive": {
+        "prefix": "#.SR VAR|KEY",
+        "body": [
+            "#.SR ${1:VAR|KEY}",
+            "#.ER",
+            "\t$0"
+        ],
+        "description": "Define a raw string in ATRC"
+    }
+}
